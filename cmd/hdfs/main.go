@@ -108,24 +108,24 @@ func main() {
 	case "ls":
 		lsOpts.Parse(argv)
 		ls(lsOpts.Args(), *lsl, *lsa, *lsh)
-	case "rm":
-		rmOpts.Parse(argv)
-		rm(rmOpts.Args(), *rmr, *rmf)
+	// case "rm":
+	// 	rmOpts.Parse(argv)
+	// 	rm(rmOpts.Args(), *rmr, *rmf)
 	case "mv":
 		mvOpts.Parse(argv)
 		mv(mvOpts.Args(), !*mvn, *mvT)
 	case "mkdir":
 		mkdirOpts.Parse(argv)
 		mkdir(mkdirOpts.Args(), *mkdirp)
-	case "touch":
-		touchOpts.Parse(argv)
-		touch(touchOpts.Args(), *touchc)
-	case "chown":
-		chownOpts.Parse(argv)
+	// case "touch":
+	// 	touchOpts.Parse(argv)
+	// 	touch(touchOpts.Args(), *touchc)
+	// case "chown":
+	// 	chownOpts.Parse(argv)
 		chown(chownOpts.Args(), *chownR)
-	case "chmod":
-		chmodOpts.Parse(argv)
-		chmod(chmodOpts.Args(), *chmodR)
+	// case "chmod":
+	// 	chmodOpts.Parse(argv)
+	// 	chmod(chmodOpts.Args(), *chmodR)
 	case "cat":
 		cat(argv[1:])
 	case "head", "tail":
@@ -202,15 +202,16 @@ func getClient(namenode string) (*hdfs.Client, error) {
 			return nil, fmt.Errorf("Problem with kerberos authentication: %s", err)
 		}
 	} else {
-		options.User = os.Getenv("HADOOP_USER_NAME")
-		if options.User == "" {
-			u, err := user.Current()
-			if err != nil {
-				return nil, fmt.Errorf("Couldn't determine user: %s", err)
-			}
+		options.User = "hadoop"
+		// options.User = os.Getenv("HADOOP_USER_NAME")
+		// if options.User == "" {
+		// 	u, err := user.Current()
+		// 	if err != nil {
+		// 		return nil, fmt.Errorf("Couldn't determine user: %s", err)
+		// 	}
 
-			options.User = u.Username
-		}
+		// 	options.User = u.Username
+		// }
 	}
 
 	// Set some basic defaults.
